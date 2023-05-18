@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://theblogforeverything.com
+
+# Sitemaps
+Sitemap: https://theblogforeverything.com/sitemap.xml
+Sitemap: https://theblogforeverything.com/server-sitemap.xml
