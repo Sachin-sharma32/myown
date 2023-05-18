@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import NProgress from "nprogress";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  s
+  
   const queryClient = new QueryClient();
   const router = useRouter();
 
@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   axios.defaults.headers.common["authorization"] = `Bearer ${cookie.jwt}`;
 
   return (
-    <div className="">
+    <div className="s">
       <Head>
         <title>TBFE - {pageProps.title}</title>
         <link rel="icon" type="image/jpg" href={`/site-light-chopped.jpg`} />
