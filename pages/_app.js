@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import NProgress from "nprogress";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  s
   const queryClient = new QueryClient();
   const router = useRouter();
 
