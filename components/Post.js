@@ -27,7 +27,7 @@ const Post = ({ post }) => {
                 mode == "light"
                     ? "bg-[#f8f8f8] shadow-2xl text-black"
                     : "bg-[#262626] shadow-black shadow-2xl text-white"
-            } h-[550px]  w-[350px] rounded-2xl overflow-hidden relative mb-4`}
+            } h-[550px]  md:w-[350px] rounded-2xl overflow-hidden relative mb-4`}
         >
             {post.image && (
                 <div className=" overflow-hidden">
@@ -78,7 +78,10 @@ const Post = ({ post }) => {
                         >
                             {post.title}
                         </h5>
-                        <p className=" mb-4 text-sm text-gray-500">
+                        <p className=" mb-4 text-sm text-gray-500 flex sm:hidden">
+                            {post.summery.slice(0,100)}..........
+                        </p>
+                        <p className=" mb-4 text-sm text-gray-500 sm:flex hidden">
                             {post.summery.slice(0,200)}..........
                         </p>
                     </Link>
@@ -86,7 +89,7 @@ const Post = ({ post }) => {
                         <div className="flex gap-2 cursor-pointer">
                             <Avatar src={post.author?.image} />
                             <div>
-                                <div className="flex gap-6 items-center">
+                                <div className="flex sm:gap-6 sm:flex-row sm:items-center flex-col">
                                     <p
                                         className={`${
                                             mode == "dark"
