@@ -1,0 +1,20 @@
+.ql-tooltip {
+  min-width: 400px;
+  margin: auto;
+  background-color: white;
+  position: fixed !important;
+  top: 100px !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(16px) !important;
+  border-radius: 0 !important;
+  background-color: #262626 !important;
+  color: black !important;
+  border-bottom-right-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
+  overflow: hidden !important;
+  transition: all !important;
+  -webkit-animation-duration: 1s !important;
+  animation-duration: 1s !important;
+  top: 31px !important;
+  display: flex !important;
+}

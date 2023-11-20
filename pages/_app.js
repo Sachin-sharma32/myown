@@ -15,11 +15,12 @@ import axios from "axios";
 import { StyledEngineProvider } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import NProgress from "nprogress";
+import cmsStore from "../sites/cms/redux/store";
+import CmsNavbar from "../sites/cms/components/Navbar";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  
   const queryClient = new QueryClient();
   const router = useRouter();
 
@@ -37,6 +38,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   const [cookie, setCookie, removeCookie] = useCookies(["jwt"]);
   axios.defaults.headers.common["authorization"] = `Bearer ${cookie.jwt}`;
+
+  const [hostName, setHostName] = useState(null);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let hostname = window.location.hostname;
+      let hostArray = hostname.split(".");
+      setHostName(hostArray[0]);
+    }
+  }, []);
 
   return (
     <div className="s">
@@ -85,29 +95,45 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 `}
       </Script>
 
-      <div className=" font-poppins">
-        <StyledEngineProvider injectFirst>
+      {hostName === "localhost" && (
+        <div className=" font-poppins">
+          <StyledEngineProvider injectFirst>
+            <QueryClientProvider client={queryClient}>
+              <Provider store={store}>
+                <SessionProvider session={session}>
+                  <Navbar />
+                  <div className="mt-12">
+                    <Component {...pageProps} />
+                  </div>
+                  {!(
+                    router.pathname === "/register" ||
+                    router.pathname === "/signin"
+                  ) && (
+                    <>
+                      <Footer />
+                      <Social />
+                    </>
+                  )}
+                </SessionProvider>
+              </Provider>
+            </QueryClientProvider>
+          </StyledEngineProvider>
+        </div>
+      )}
+      {hostName === "cms" && (
+        <div className="bg-white font-poppins">
           <QueryClientProvider client={queryClient}>
-            <Provider store={store}>
-              <SessionProvider session={session}>
-                <Navbar />
-                <div className="mt-12">
+            <StyledEngineProvider injectFirst>
+              <Provider store={cmsStore}>
+                <div className={`${router.asPath !== "/" ? "mt-14" : "mt-0"}`}>
+                  {router.asPath !== "/" && <CmsNavbar />}
                   <Component {...pageProps} />
                 </div>
-                {!(
-                  router.pathname === "/register" ||
-                  router.pathname === "/signin"
-                ) && (
-                  <>
-                    <Footer />
-                    <Social />
-                  </>
-                )}
-              </SessionProvider>
-            </Provider>
+              </Provider>
+            </StyledEngineProvider>
           </QueryClientProvider>
-        </StyledEngineProvider>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

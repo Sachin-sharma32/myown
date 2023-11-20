@@ -196,7 +196,10 @@ const Post = ({ post }) => {
                   } flex gap-4 text-xs`}
                 >
                   {post?.tags?.map((item, i) => (
-                    <Link href={`/search/${item.title}`} key={i}>
+                    <Link
+                      href={`/search/${item.title}`}
+                      key={i}
+                    >
                       <p className=" hover:scale-125 transition-all duration-200 cursor-pointer">
                         #{item.title}
                       </p>
@@ -220,14 +223,19 @@ const Post = ({ post }) => {
                           (post.author?.isAdmin && (
                             <img
                               src="/verified.png"
-                              alt="verifie"
+                              alt="verified"
+                              width={10}
+                              height={10}
                               className="w-4 absolute -top-1 -right-4"
                             />
                           ))}
                       </p>
                       <p>on {moment(post.publishedAt).format("ll")}</p>
                     </figcaption>
-                    <BookmarkBtn post={post} setSuccess={setBookmarkSuccess} />
+                    <BookmarkBtn
+                      post={post}
+                      setSuccess={setBookmarkSuccess}
+                    />
                     <button
                       className={`${
                         mode === "dark" ? "text-white" : "text-black"
@@ -326,7 +334,10 @@ const Post = ({ post }) => {
                     }}
                   />
                   <div className="flex justify-end gap-3 relative mt-4">
-                    <Like post={post} setSuccess={setLikeSuccess} />
+                    <Like
+                      post={post}
+                      setSuccess={setLikeSuccess}
+                    />
                     {likeSuccess && (
                       <Alert
                         security="success"
@@ -386,7 +397,10 @@ const Post = ({ post }) => {
                                 className=" bg-[#f8f8f8]  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
                                 placeholder="Write a comment..."
                               ></Field>
-                              <ErrorMessage name="comment" component={Error} />
+                              <ErrorMessage
+                                name="comment"
+                                component={Error}
+                              />
                             </div>
                             <div className="flex flex-col gap-6 w-[100%]">
                               <div className="w-[100%] sm:w-fit relative">
@@ -397,7 +411,10 @@ const Post = ({ post }) => {
                                   placeholder="Name"
                                   className=" bg-[#f8f8f8] w-[350px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                 />
-                                <ErrorMessage name="name" component={Error} />
+                                <ErrorMessage
+                                  name="name"
+                                  component={Error}
+                                />
                               </div>
                               <div className="w-[100%] sm:w-fit relative">
                                 <Field
@@ -407,7 +424,10 @@ const Post = ({ post }) => {
                                   placeholder="Email"
                                   className=" bg-[#f8f8f8] w-[350px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                 />
-                                <ErrorMessage name="email" component={Error} />
+                                <ErrorMessage
+                                  name="email"
+                                  component={Error}
+                                />
                               </div>
                             </div>
                             <button
@@ -459,7 +479,10 @@ const Post = ({ post }) => {
                       >
                         {loading && (
                           <div className="flex gap-1 items-center justify-center">
-                            <CircularProgress size="1rem" color="inherit" />
+                            <CircularProgress
+                              size="1rem"
+                              color="inherit"
+                            />
                             <p>Posting...</p>
                           </div>
                         )}
@@ -554,7 +577,7 @@ export default Post;
 
 export async function getServerSideProps(context) {
   const post = await axios.get(
-    `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/${context.params.post}`
+    `http://localhost:8000/api/v1/posts/${context.params.post}`
   );
   return {
     props: {

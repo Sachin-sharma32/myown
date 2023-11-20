@@ -2,9 +2,7 @@ import { getServerSideSitemap } from "next-sitemap";
 import axios from "axios";
 
 export const getServerSideProps = async (context) => {
-  const data = await axios.get(
-    "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts"
-  );
+  const data = await axios.get("http://localhost:8000/api/v1/posts");
 
   data;
 
